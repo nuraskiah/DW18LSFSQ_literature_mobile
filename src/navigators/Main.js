@@ -19,7 +19,9 @@ const Main = () => {
         name="Home"
         component={Home}
         options={{
-          title: <Image source={logo} style={{ width: 30, height: 30 }} />,
+          title: (
+            <Image source={logo} style={{ height: 24, resizeMode: 'contain' }} />
+          ),
         }}
       ></MainStack.Screen>
     </MainStack.Navigator>
