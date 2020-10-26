@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {
   TouchableHighlight,
   View,
@@ -10,7 +10,9 @@ import {
 
 import LiteratureCard from './LiteratureCard';
 
-const LiteraturesList = ({ literatures, profile }) => {
+const LiteraturesList = ({ literatures, refetch, profile }) => {
+  const [isRefresh, setIsRefresh] = useState(false);
+
   const data = literatures.filter((literature) => {
     if (!profile) return literature.status === 'Approved';
     else return literature;
@@ -32,6 +34,7 @@ const LiteraturesList = ({ literatures, profile }) => {
         title={item.title}
         author={item.author}
         year={item.year}
+        bookmarks={item.bookmarks}
         key={index}
       />
     </View>
@@ -40,15 +43,21 @@ const LiteraturesList = ({ literatures, profile }) => {
   return !literatures ? (
     <Text>error</Text>
   ) : (
-    <View style={styles.container}>
-      <FlatList
-        data={data}
-        numColumns={2}
-        renderItem={renderItem}
-        showsVerticalScrollIndicator={false}
-        columnWrapperStyle={styles.column}
-      />
-    </View>
+    // <View style={styles.container}>
+    <FlatList
+      data={data}
+      numColumns={2}
+      renderItem={renderItem}
+      showsVerticalScrollIndicator={false}
+      columnWrapperStyle={styles.column}
+      onRefresh={() => {
+        setIsRefresh(true);
+        refetch();
+        setIsRefresh(false);
+      }}
+      refreshing={isRefresh}
+    />
+    // </View>
   );
 };
 
@@ -62,7 +71,8 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
   },
   render: {
-    width: '48%',
+    width: '47%',
+    marginBottom: 25,
   },
   pending: {},
   rejected: {},

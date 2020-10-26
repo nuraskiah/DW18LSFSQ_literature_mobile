@@ -6,7 +6,7 @@ const Splash = () => {
     <View style={styles.splash}>
       <Image
         source={require('../../assets/logo.png')}
-        style={{ width: 100, height: 100 }}
+        style={{ width: 100, resizeMode: 'contain' }}
       />
     </View>
   );

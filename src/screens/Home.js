@@ -10,9 +10,12 @@ import {
 } from 'react-native';
 import { useQuery } from 'react-query';
 
+import logo from '../../assets/logo.png';
+
 import { Context } from '../context/Context';
 import { API } from '../config/config.js';
 
+import Header from '../components/CustomHeader';
 import PrimaryButton from '../components/PrimaryButton';
 import SecondaryButton from '../components/SecondaryButton';
 import LiteratureList from '../components/LiteratureList';
@@ -29,18 +32,18 @@ const Home = (props) => {
   return isLoading ? (
     <Splash />
   ) : (
-    <View style={styles.container}>
-      <Text style={styles.text}>This is Home Page</Text>
-      <LiteratureList literatures={data.data.data} />
-      <TouchableOpacity
-        onPress={() => {
-          dispatch({
-            type: 'LOGOUT',
-          });
-        }}
-      >
-        <Text style={styles.text}>Logout</Text>
-      </TouchableOpacity>
+    <View style={{ flex: 1 }}>
+      <Header
+        center={
+          <Image source={logo} style={{ height: 24, resizeMode: 'contain' }} />
+        }
+      />
+      <ScrollView>
+        <View style={styles.container}>
+          <Text style={styles.text}>Discover Literatures</Text>
+          <LiteratureList literatures={data.data.data} />
+        </View>
+      </ScrollView>
     </View>
   );
 };
@@ -56,6 +59,9 @@ const styles = StyleSheet.create({
   },
   text: {
     color: 'white',
+    fontSize: 24,
+    marginBottom: 25,
+    fontWeight: 'bold',
   },
 });
 
