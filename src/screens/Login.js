@@ -93,8 +93,24 @@ const Login = (props) => {
               onChangeText={handleChange('password')}
               value={values.password}
             />
+            {exist === false && (
+              <Text
+                style={{
+                  color: '#ad2b2b',
+                  textAlign: 'center',
+                  marginBottom: 10,
+                }}
+              >
+                You have entered invalid email or password
+              </Text>
+            )}
             <View style={{ padding: 10, marginBottom: 10, width: '100%' }}>
-              <PrimaryButton label="Sign In" block onPress={handleSubmit} />
+              <PrimaryButton
+                label="Sign In"
+                block
+                onPress={handleSubmit}
+                loading={loading}
+              />
             </View>
           </View>
         )}
